@@ -1,17 +1,25 @@
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const PolyfillsPlugin = require('webpack-polyfills-plugin');
 
-var config = {
+let configFile = require('./config.json');
+if ( ! configFile.template || ! fs.existsSync('./templates/'+configFile.template+'/') ) {
+	console.log('Error: no template defined or missing directory');
+	process.exit();
+}
+console.log('using template files:', configFile.template);
+
+let config = {
     module: {},
 };
 
 let cssConfig = Object.assign({}, config, {
-	entry: ['./views/style.scss'],
+	entry: ['./templates/'+configFile.template+'/style.scss'],
 	output: {
-		path: __dirname + "/dist",
-		filename: 'bundle.css'
+		path: __dirname + '/dist',
+		filename: 'bundle.css',
 	},
 	module: {
 		rules: [
@@ -77,15 +85,15 @@ let cssConfig = Object.assign({}, config, {
 	},
 	plugins: [
 		new ExtractTextPlugin({
-			filename: 'bundle.css'
+			filename: 'bundle.css',
 		}),
-	]
+	],
 });
 let jsxConfig = Object.assign({}, config, {
-	entry: ["babel-polyfill",'whatwg-fetch','./views/App.jsx'],
+	entry: ['babel-polyfill', 'whatwg-fetch', './views/App.jsx'],
 	output: {
 		path: __dirname,
-		filename: 'dist/bundle.js'
+		filename: 'dist/bundle.js',
 	},
 	module: {
 		rules: [
@@ -94,16 +102,16 @@ let jsxConfig = Object.assign({}, config, {
 				loader: 'babel-loader',
 				exclude: /node_modules/,
 				query: {
-					presets: ['env', 'react', 'stage-2']
+					presets: ['env', 'react', 'stage-2'],
 				},
-			}
-		]
+			},
+		],
 	},
 	plugins: [
 		new PolyfillsPlugin([
 			'Array/prototype/forEach',
 		]),
-	]
+	],
 });
 
 module.exports = [

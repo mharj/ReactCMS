@@ -62,3 +62,6 @@ storage
 
 # dist
 dist
+
+# configuration
+config.json
