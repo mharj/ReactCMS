@@ -80,6 +80,17 @@ let cssConfig = Object.assign({}, config, {
 					publicPath: './'       // override the default path
 				}
 			 }]
+		  },
+		  {
+			test: /\.png(\?v=\d+\.\d+\.\d+)?$/,
+			use: [{
+				loader: 'file-loader',
+				options: {
+					name: '[name].[ext]',
+					outputPath: 'images/',    // where the fonts will go
+					publicPath: './'       // override the default path
+				}
+			 }]
 		  }
 		]
 	},

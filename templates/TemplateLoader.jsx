@@ -1,13 +1,21 @@
 import React from 'react';
 
-import Main from './test/Main.jsx';
+import Main from './mandatory/Main.jsx';
 
 class TemplateLoader extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			content: props.content,
+		};
+	}
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			content: nextProps.content,
+		});
 	}
 	render() {
-		return (<Main {...this.props.content}/>);
+		return (<Main {...this.state.content}/>);
 	}
 }
 export default TemplateLoader;

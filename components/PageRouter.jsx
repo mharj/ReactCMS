@@ -4,17 +4,35 @@ import {Route} from 'react-router-dom';
 class PageRouter extends React.Component {
 	constructor(props) {
 		super(props);
-		this.pageComponents = props.pages.map( (page ,idx) => {
+		let pageComponents = props.pages.map( (page, idx) => {
 			return () => {
 				return (
 					<props.pageClass document={page.document} />
 				);
 			};
 		});
+		this.state = {
+			pages: props.pages,
+			pageComponents: pageComponents,
+		};
+	}
+	componentWillReceiveProps(nextProps) {
+		let pageComponents = nextProps.pages.map( (page, idx) => {
+			return () => {
+				return (
+					<nextProps.pageClass document={page.document} />
+				);
+			};
+		});
+		this.setState({
+			pages: nextProps.pages,
+			pageComponents: pageComponents,
+		});
 	}
 	render() {
-		let routes = this.props.pages.map( (page, idx) => {
-			return <Route key={idx} exact={true} path={page.to} component={this.pageComponents[idx]} />;
+		let self = this;
+		let routes = this.state.pages.map( (page, idx) => {
+			return <Route key={idx} exact={true} path={page.to} component={self.state.pageComponents[idx]} />;
 		});
 		return (routes);
 	}
