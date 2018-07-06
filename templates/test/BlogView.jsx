@@ -5,13 +5,20 @@ import BlogEntry from './BlogEntry.jsx';
 class BlogView extends React.Component {
 	constructor(props) {
 		super(props);
-		console.log('BlogView', props);
+		this.state = {
+			blog: props.blog,
+		};
+	}
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			blog: nextProps.blog,
+		});
 	}
 	render() {
 		return (
 			<table style={{width: '800px'}}>
 				<tbody>
-					{this.props.blogs.map( (blog, idx) => {
+					{this.state.blog.entries.map( (blog, idx) => {
 						return <BlogEntry key={idx} {...blog} />;
 					})}
 				</tbody>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Main from './mandatory/Main.jsx';
+import Main from './minimal/Main.jsx';
 
 class TemplateLoader extends React.Component {
 	constructor(props) {

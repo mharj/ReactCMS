@@ -7,7 +7,7 @@ class BlogEntry extends React.Component {
 	render() {
 		return ([
 			<tr key="0">
-				<td>{this.props.title}</td><td>{this.props.editor+' '+this.props.published}</td>
+				<td>{this.props.title}</td><td>{this.props.editor+' '+this.props.time}</td>
 			</tr>,
 			<tr key="1">
 				<td colSpan="2">Tags: {this.props.tags.join(', ')}</td>

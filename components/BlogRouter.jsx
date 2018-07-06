@@ -4,20 +4,21 @@ import {Route} from 'react-router-dom';
 class BlogRouter extends React.Component {
 	constructor(props) {
 		super(props);
+		console.log(props);
 		this.state = {
-			blogs: props.blogs,
+			blog: props.blog,
 		};
 		this.BlogView = () => (
-			<props.blogClass blogs={this.state.blogs} />
+			<props.blogClass {...this.state} />
 		);
 	}
 	componentWillReceiveProps(nextProps) {
 		this.setState({
-			blogs: nextProps.blogs,
+			blog: nextProps.blog,
 		});
 	}
 	render() {
-		return (<Route exact={true} path={this.props.to} component={this.BlogView} />);
+		return (<Route exact={true} path={this.state.blog.to} component={this.BlogView} />);
 	}
 }
 export default BlogRouter;

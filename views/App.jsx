@@ -4,8 +4,6 @@ import {HashRouter} from 'react-router-dom';
 import {I18nextProvider, translate} from 'react-i18next';
 import i18n from './i18n'; // initialized i18next instance
 
-import TemplateLoader from '../templates/TemplateLoader.jsx';
-
 class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -20,6 +18,9 @@ class App extends React.Component {
 				[],
 			},
 		};
+		this.MainClass = () => (
+			<props.mainClass {...this.state.content} />
+		);
 	}
 	componentDidMount() {
 		let self = this;
@@ -63,8 +64,12 @@ class App extends React.Component {
 		// fetch '/api/content'
 	}
 	render() {
-		return <HashRouter><TemplateLoader {...this.props} content={this.state.content} /></HashRouter>;
+//		return <HashRouter><TemplateLoader {...this.props} content={this.state.content} /></HashRouter>;
+		return <I18nextProvider i18n={ i18n }><HashRouter><this.MainClass /></HashRouter></I18nextProvider>;
 	}
 }
-let AppInstance = translate(['common'])(App);
-ReactDOM.render(<I18nextProvider i18n={ i18n }><AppInstance title='React CMS' /></I18nextProvider>, document.getElementById('content'));
+export default App;
+// let AppTranslated= translate(['common'])(App);
+//export default AppTranslated;
+// let AppInstance = translate(['common'])(App);
+// ReactDOM.render(<I18nextProvider i18n={ i18n }><AppInstance title='React CMS' /></I18nextProvider>, document.getElementById('content'));

@@ -101,7 +101,7 @@ let cssConfig = Object.assign({}, config, {
 	],
 });
 let jsxConfig = Object.assign({}, config, {
-	entry: ['babel-polyfill', 'whatwg-fetch', './views/App.jsx'],
+	entry: ['babel-polyfill', 'whatwg-fetch', './templates/'+configFile.template+'/Main.jsx'],
 	output: {
 		path: __dirname,
 		filename: 'dist/bundle.js',
